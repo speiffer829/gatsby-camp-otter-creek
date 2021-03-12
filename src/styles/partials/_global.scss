@@ -1,0 +1,80 @@
+// 
+//   General content styles
+// ==========================================================================
+
+html, button, input, select, textarea {
+  color: $dark;
+}
+
+body {
+  background: $light;
+  color: $dark;
+  line-height: 1.4;
+  font-size: 100%;
+  font-family: $base-font;  
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,h2,h3,h4,h5,h6,
+.h1,.h2,.h3,.h4,.h5,.h6 { 
+  font-family: $fancy-font; 
+  line-height: 1.2em;
+}
+
+h1 a, a h1, h2 a, a h2, h3 a, a h3 {   
+  text-decoration: none; 
+  border-bottom: 0; 
+}
+
+h1, .h1 { font-size: 2em; }
+h2, .h2 { font-size: 1.8em; }
+h3, .h3 { font-size: 1.6em; }
+
+a { color: #000; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+iframe, object, embed {
+  max-width: 100%;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+*, :before, :after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}

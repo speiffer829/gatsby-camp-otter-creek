@@ -1,0 +1,405 @@
+//
+// Layout and Grid
+// ==========================================================================
+
+// To establish width of "wrap" class (see grid.scss)
+$content-width: 1366px;
+
+// For Media Queries
+$xlarge: 1200px;
+$large: 1000px;
+$medium: 768px;
+$small: 480px;
+$xtra-small: 320px;
+
+//
+// Fonts
+// ==========================================================================
+
+$base-font: "Source Serif Pro", serif;
+$fancy-font: "Source Serif Pro", serif;
+
+//
+// Colors
+// ==========================================================================
+
+$primary: #888;
+$secondary: #aaa;
+
+$light: #fff;
+$dark: #000;
+
+$brown: #4d3722;
+$green: #113316;
+$lightGreen: #e0da5e;
+$tan: #fff0cc;
+$gold: #fea500;
+$orange: #cc7214;
+
+//
+// Mixins
+// ==========================================================================
+
+// Media Query mixin
+@mixin breakpoint($viewport, $width: false) {
+  @if $viewport == xtra-small {
+    @media only screen and (min-width: $xtra-small) {
+      @content;
+    }
+  } @else if $viewport == small {
+    @media only screen and (min-width: $small) {
+      @content;
+    }
+  } @else if $viewport == medium {
+    @media only screen and (min-width: $medium) {
+      @content;
+    }
+  } @else if $viewport == large {
+    @media only screen and (min-width: $large) {
+      @content;
+    }
+  } @else if $viewport == large-max {
+    @media only screen and (max-width: $large) {
+      @content;
+    }
+  } @else if $width == min {
+    @media only screen and (min-width: $viewport) {
+      @content;
+    }
+  } @else if $width == max {
+    @media only screen and (max-width: $viewport) {
+      @content;
+    }
+  }
+}
+
+// Micro Clearfix Hack - http://nicolasgallagher.com/micro-clearfix-hack/
+
+@mixin clearfix-micro() {
+  & {
+    *zoom: 1;
+  }
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// mixin for "before" and "after" pseudo-elements (usually when using sprites in pseudo elements)
+
+@mixin pseudo-element($width, $height, $bg: false) {
+  display: block;
+  content: "";
+
+  width: $width;
+  height: $height;
+
+  @if $bg {
+    background: $bg;
+  }
+}
+
+// mixin for absolute positioning
+
+@mixin abs-pos($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  position: absolute;
+}
+
+@mixin gradient($fromColor, $toColor) {
+  background: $fromColor; /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    $fromColor 0%,
+    $toColor 100%
+  ); /* FF3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, $fromColor),
+    color-stop(100%, $toColor)
+  ); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(
+    top,
+    $fromColor 0%,
+    $toColor 100%
+  ); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(
+    top,
+    $fromColor 0%,
+    $toColor 100%
+  ); /* Opera 11.10+ */
+  background: -ms-linear-gradient(
+    top,
+    $fromColor 0%,
+    $toColor 100%
+  ); /* IE10+ */
+  background: linear-gradient(
+    to bottom,
+    $fromColor 0%,
+    $toColor 100%
+  ); /* W3C */
+}
+
+@function to-string($list, $glue: "", $is-nested: false) {
+  $result: null;
+
+  @for $i from 1 through length($list) {
+    $e: nth($list, $i);
+
+    @if type-of($e) == list {
+      $result: $result#{to-string($e, $glue, true)};
+    } @else {
+      $result: if(
+        $i != length($list) or $is-nested,
+        $result#{$e}#{$glue},
+        $result#{$e}
+      );
+    }
+  }
+
+  @return $result;
+}
+
+@function build-stops($colors, $stops) {
+  $output: ();
+  $i: 1;
+
+  @each $color in $colors {
+    $stop: nth($stops, $i);
+
+    $text: "#{$color} #{$stop}";
+    $output: append($output, $text);
+    $i: $i + 1;
+  }
+  @return (to-string($output, ","));
+}
+
+@function build-old-stops($colors, $stops) {
+  $output: ();
+
+  @each $color in $colors {
+    $i: index($colors, $color);
+    $stop: nth($stops, $i);
+
+    $text: "color-stop(#{$stop}, #{$color})";
+    $output: append($output, $text);
+  }
+  @return (to-string($output, ","));
+}
+@mixin linear-gradient($colors, $stops, $direction: 180) {
+  // Colors: A list of color codes.
+  // Stops: A list of percentages.
+  // Direction: A number.  Degrees, NEW format. DOES NOT SUPPORT NAMED DIRECTIONS.
+  // If Direction is not specified, assumes top to bottom.
+
+  // Example: Black Red Red Black, right to left.
+  // @include linear-gradient(#000 #f00 #f00 #000,0% 25% 75% 100%,270);
+
+  // Direction Reference - Gradient Start
+  // Use these numbers for 'I want the gradient to start at...'
+  // 135    180    225
+  //  90           270
+  //  45     0     315
+
+  // Direction Reference - Gradient Destination
+  // Use these numbers for 'I want to replicate "to x"'
+
+  // 315     0      45
+  // 270            90
+  // 225    180    135
+
+  // Direction Reference - 'to X' format
+  // A quick reference.
+  // to bottom:       180
+  // to top:            0
+  // to left:         270
+  // to right:         90
+  // to top left:     315
+  // to top right:     45
+  // to bottom left:  225
+  // to bottom right: 135
+
+  // Formats:
+  // Background: start color [fallback]
+  // webkit-gradient [older mobile native, specify 2 corners]
+  // -X-linear-gradient [source, prefixes webkit,o,ms,moz]
+  // linear-gradient [to destination]
+
+  // Translate the direction
+  $old-direction: (450 - $direction) % 360;
+  $old-direction: #{$old-direction}deg;
+  $two-direction: (450 - $direction) % 360;
+  $two-direction: #{$two-direction}deg;
+  $direction: #{$direction}deg;
+
+  // Fallback
+  background: nth($colors, 1);
+
+  // Webkit-gradient
+  background: -webkit-gradient(
+    linear,
+    $two-direction,
+    build-old-stops($colors, $stops)
+  );
+
+  // Prefixed gradients
+  background: -webkit-linear-gradient(
+    $old-direction,
+    build-stops($colors, $stops)
+  );
+  background: -o-linear-gradient($old-direction, build-stops($colors, $stops));
+  background: -ms-linear-gradient($old-direction, build-stops($colors, $stops));
+  background: -moz-linear-gradient(
+    $old-direction,
+    build-stops($colors, $stops)
+  );
+
+  // Browsers that behave
+  background: linear-gradient($direction, build-stops($colors, $stops));
+}
+
+//
+// Sticky footer mixin
+// see: http://codepen.io/zoerooney/pen/vtdFw
+// _______________________
+
+@mixin sticky-footer(
+  $footer-height,
+  $wrapper-selector: unquote(".wrap-everything"),
+  $container-selector: unquote("#page"),
+  $footer-selector: unquote(".site-footer")
+) {
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+  #{$wrapper-selector} {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -$footer-height;
+    #{$container-selector} {
+      padding: 0 0 $footer-height 0;
+    }
+  }
+  #{$footer-selector} {
+    height: $footer-height;
+  }
+}
+
+/// Mixin to prefix a property
+/// @author Hugo Giraudel
+/// @param {String} $property - Property name
+/// @param {*} $value - Property value
+/// @param {List} $prefixes (()) - List of prefixes to print
+/// EX: @include prefix(transform, rotate(45deg), webkit ms);
+/// EX2: @include prefix(box-shadow, (0px 2px 3px #FFF, 5px 2px 4px #000) );
+@mixin prefix($property, $value, $prefixes: (moz webkit ms)) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+
+  // Output standard non-prefixed declaration
+  #{$property}: $value;
+}
+
+// Function for calculating em's
+
+@function em($target, $context: 16px) {
+  @return ($target / $context) * 1em;
+}
+
+// Mixin for rem fallbacks
+
+// First calculate the rem value based on the px value
+@function rem($size) {
+  $remSize: $size / 16px; // Assuming 16px default font size for the browser
+  @return $remSize * 1rem;
+}
+
+// Now create mixin that calls the function
+@mixin rem($size) {
+  font-size: $size; //Fallback in px
+  font-size: rem($size);
+}
+
+// Border Radius Generator v2
+@mixin br-clipfix() {
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+@mixin border-radius($rad1, $rad2: false, $rad3: false, $rad4: false) {
+  // USAGE:
+  // All the same Circular: border-radius(10px)
+  // Full control Circular: border-radius(3px 5px 7px 9px) [See layouts, below]
+  // All the same Ellipses: border-radius(50px 25px) [horizontal, vertical]
+  // Full control Ellipses: border-radius(50px 25px, 25px 50px, 33px 66px, 66px 33px)
+
+  // Supports the following units in any combination:
+  // px, em, %
+
+  // YOU MAY MIX AND MATCH both units and ellipse/circular!
+  // border-radius(50% 25em, 25%, 25px 50%, 50px) is perfectly valid.
+  // ...but would look super-funky.
+
+  // Formats based on the number of parameters fed [2, 3, and 4 are optional]
+  //
+  // |1 Param | 2 Param | 3 Param | 4 Param |
+  // |--------|---------|---------|---------|
+  // | A   A  |  A   B  |  A   B  |  A   B  |
+  // | A   A  |  B   A  |  B   C  |  D   C  |
+  // |--------|---------|---------|---------|
+
+  // The long form may look...needlessly verbose...compared to the shorthand,
+  // but I have a reason for it.  The code needed to account for 1-4 radii and
+  // 0-4 elliptical radii is a convoluted mess of 5- to 7-deep nested IFs.
+  // Going long-form you can use the format '10px 20%' for any parameter and
+  // be just fine.  Some older browsers also don't like the ' X / Y ' syntax.
+  //
+  // It's also been overhauled with a 'clip fix' to deal with background
+  // blow-outs and makes use of the Prefix mixin.
+  // - Andy
+  @if $rad2 {
+    @if $rad3 {
+      @if $rad4 {
+        // 4 Parameters
+        @include prefix(border-top-left-radius, $rad1, moz webkit);
+        @include prefix(border-top-right-radius, $rad2, moz webkit);
+        @include prefix(border-bottom-right-radius, $rad3, moz webkit);
+        @include prefix(border-bottom-left-radius, $rad4, moz webkit);
+      } @else {
+        // 3 Parameters
+        @include prefix(border-top-left-radius, $rad1, moz webkit);
+        @include prefix(border-top-right-radius, $rad2, moz webkit);
+        @include prefix(border-bottom-right-radius, $rad3, moz webkit);
+        @include prefix(border-bottom-left-radius, $rad2, moz webkit);
+      }
+    } @else {
+      // 2 Parameters
+      @include prefix(border-top-left-radius, $rad1, moz webkit);
+      @include prefix(border-top-right-radius, $rad2, moz webkit);
+      @include prefix(border-bottom-right-radius, $rad1, moz webkit);
+      @include prefix(border-bottom-left-radius, $rad2, moz webkit);
+    }
+  } @else {
+    // 1 Parameter
+    @include prefix(border-radius, $rad1, moz webkit);
+  }
+
+  @include br-clipfix();
+}

@@ -1,0 +1,57 @@
+//
+// Helper classes & Placeholders
+// ==========================================================================
+
+// placeholders
+%text-shadow-dark {
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.7);
+}
+
+%list-reset {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+%hide-text {
+  overflow: hidden;
+  text-indent: 350%;
+  white-space: nowrap;
+}
+
+// Clearfix
+.clearfix:after {
+    clear: both;
+    content: '\0020';
+    display: block;
+    height: 0;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clear {
+    clear: both;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+// Facebook crap
+.fb_iframe_widget { display: block !important; }
+.fb-like-box, .fb-like-box span, .fb-like-box span iframe[style] { 
+  width: 100% !important; 
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fff;
+}
