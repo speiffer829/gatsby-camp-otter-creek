@@ -9,6 +9,10 @@
 //baseline styles and defaults
 @import "partials/global";
 
+html{
+  scroll-behavior: smooth;
+}
+
 body {
   background: $tan;
   padding-top: 78px;

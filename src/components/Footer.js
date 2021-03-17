@@ -76,7 +76,7 @@ const Footer = ( props ) => {
 						<div className="store-hours-box">
 							<h3 className="stay">Camp Office Open Daily <span className="little-h3">(April - October)</span></h3>
 
-							<a href="#" className="click-for-hours" data-status="closed">Click Here For Store Hours</a>
+							<Link to="/camp-store" className="click-for-hours" data-status="closed">Click Here For Store Hours</Link>
 
 
 							<div className="hours-row">
