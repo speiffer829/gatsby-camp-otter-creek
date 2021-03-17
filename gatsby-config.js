@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: "Gatsby Camp Otter Creek",
+    siteUrl: "http://campottercreek.mindstaging.com/graphql",
   },
   plugins: [
     {
