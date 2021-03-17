@@ -3,11 +3,10 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import React from 'react'
 import Layout from "../components/Layout";
 
-const OurRatesFees = () => {
 
-	const data = useStaticQuery(graphql`
-		query{
-			wpPage(slug: {eq: "our-rates-fees"}) {
+export const query = graphql`
+		query($slug: String!){
+			wpPage(slug: {eq: $slug}) {
 				content
 				slug
 				id
@@ -17,20 +16,24 @@ const OurRatesFees = () => {
 						altText
 						localFile {
 							childImageSharp {
-								gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+								gatsbyImageData( layout: FULL_WIDTH)
 							}
 						}
 					}
 				}
 			}
 		}
-	`)
+	`
+
+
+const OurRatesFees = (props) => {
+
 	
 	return (
-		<Layout pageTitle='Our Rates & Fees'>
+		<Layout pageTitle={props.data.wpPage.title}>
 			
 
-				<GatsbyImage className="child-header" image={data.wpPage.featuredImage.node.localFile.childImageSharp.gatsbyImageData} alt={data.wpPage.featuredImage.node.altText} />
+				<GatsbyImage className="child-header" image={ props.data.wpPage.featuredImage.node.localFile.childImageSharp.gatsbyImageData } alt={ props.data.wpPage.featuredImage.node.altText } />
 				
 				
 
@@ -40,11 +43,12 @@ const OurRatesFees = () => {
 						<main className="main-content" role="main">
 
 
-								<h1 className="entry-title">{data.wpPage.title}</h1>
+								<section>
+									<h1 className="entry-title">{props.data.wpPage.title}</h1>
+									<article dangerouslySetInnerHTML={{__html: props.data.wpPage.content}} />
+								</section>
 
-								<div dangerouslySetInnerHTML={{__html: data.wpPage.content}} />
 
-							
 
 						</main>
 
