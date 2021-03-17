@@ -571,6 +571,10 @@ header {
             font-weight: bold;
             text-transform: uppercase;
 
+            .small-box-img{
+              display: none;
+            }
+
             .box-content {
               position: relative;
             }

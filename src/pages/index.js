@@ -32,6 +32,7 @@ const IndexPage = () => {
           }
           smallBlocks {
             text
+            showOnMobile
             image {
               altText
               localFile {
@@ -127,7 +128,7 @@ const IndexPage = () => {
                 {
                   data.allWp.nodes[0].baseSettings.gridNavACF.smallBlocks.map(block => (
                     // TODO: SHow/hide on mobile
-                    <Link to={ block.link.url } className="little-box" key={ block.text }>
+                    <Link to={ block.link.url } className={`little-box ${block.showOnMobile == 1 ? 'stick-around' : ''}`} key={ block.text }>
                       <GatsbyImage image={block.image.localFile.childImageSharp.gatsbyImageData} alt={block.image.altText} className="small-box-img" />
                       <div className="box-content">
                         <div className="box-label">

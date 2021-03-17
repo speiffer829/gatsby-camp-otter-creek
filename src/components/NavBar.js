@@ -60,11 +60,11 @@ const NavBar = (props) => {
 						<StaticImage placeholder="blurred" src="../images/reservation-icon.png" alt="Reservations" />
 						Reservations<span className="desk-hide"> inquiry</span>
 					</Link>
-					{!props.isHome && <button onClick={ e=>{ e.preventDefault(); setMenu(true) } } className="desk-nav-link menu-btn order-2">
-							<StaticImage placeholder="blurred" src="../images/desk-open.png" alt="Menu" className="desk-show" />
-							<StaticImage placeholder="blurred" src="../images/open.png" alt="Menu" className="desk-hide" />
+					<button onClick={ e=>{ e.preventDefault(); setMenu(true) } } className={`desk-nav-link menu-btn order-2 ${props.isHome ? 'hide-on-home' : ''}`}>
+							<StaticImage placeholder="tracedSVG" src="../images/desk-open.png" alt="Menu" className="desk-show" />
+							<StaticImage placeholder="tracedSVG" src="../images/open.png" alt="Menu" className="desk-hide" />
 							<span className="desk-show">Menu</span>
-						</button>}
+						</button>
 				</div>
 			</div>
 		</div>
