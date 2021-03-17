@@ -228,6 +228,8 @@ header {
           height: 100%;
           transition: all 0.25s;
           text-transform: uppercase;
+          background: transparent;
+          border: none;
 
           &.mobile-move {
             display: none;
@@ -634,14 +636,20 @@ header {
 // ==========================================================================
 
 .overlay {
-  width: 100%;
+  width: 0%;
   height: 100%;
+  overflow: hidden;
   background: rgba($green, 0.3);
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: 500;
-  display: none;
+  opacity: 0;
+
+  &.active{
+    opacity: 1;
+    width: 100%;
+  }
 }
 
 .nav {

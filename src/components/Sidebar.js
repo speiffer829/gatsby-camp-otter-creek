@@ -1,50 +1,29 @@
-import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
+import { graphql, useStaticQuery, Link } from 'gatsby'
 
 const Sidebar = () => {
 
-	const data = useStaticQuery(graphql`
-	query{
-		allWp {
-			nodes {
-				baseSettings {
-					gridNavACF {
-						mainBlock {
-							linkText
-							title
-							description
-							image {
-								localFile {
-									childImageSharp {
-										gatsbyImageData(placeholder: BLURRED)
-									}
-								}
-							}
-						}
-						smallBlocks {
-							text
-							image {
-								altText
-								localFile {
-									childImageSharp {
-										gatsbyImageData(placeholder: BLURRED)
-									}
-								}
-							}
-							link {
-								url
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	`)
+
+
 	
 	return (
 		<aside className="sidebar">
-			
+			<div class="grid-nav-bar">
+				<div class="grid-nav">
+					<div class="little-boxes">
+						
+						<Link to= class="little-box">
+							<div class="box-content">
+								<div class="box-label">
+
+									<p></p>
+
+								</div>
+							</div>
+						</Link>
+					</div>
+				</div>
+			</div>
 		</aside>
 	)
 }

@@ -1,10 +1,33 @@
 import React from 'react'
-import { Link } from "gatsby";
+import { Link, useStaticQuery, graphql } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import Helmet from "react-helmet";
+import { useState } from 'react'
 
 
 const NavBar = (props) => {
+
+	const [menu, setMenu] = useState(false)
+
+	const data = useStaticQuery(graphql`
+		query{
+			allWp {
+				nodes {
+					baseSettings {
+						gridNavACF {
+							smallBlocks {
+								text
+								link {
+									url
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	`)
+	
 	return (
 <header className="site-header" role="banner">
 	<Helmet title={`${props.pageTitle ? `${props.pageTitle} | ` : ''}Otter Creek Campground`} />
@@ -37,21 +60,21 @@ const NavBar = (props) => {
 						<StaticImage placeholder="blurred" src="../images/reservation-icon.png" alt="Reservations" />
 						Reservations<span className="desk-hide"> inquiry</span>
 					</Link>
-					{!props.isHome && <Link to="#" className="desk-nav-link menu-btn order-2">
+					{!props.isHome && <button onClick={ e=>{ e.preventDefault(); setMenu(true) } } className="desk-nav-link menu-btn order-2">
 							<StaticImage placeholder="blurred" src="../images/desk-open.png" alt="Menu" className="desk-show" />
 							<StaticImage placeholder="blurred" src="../images/open.png" alt="Menu" className="desk-hide" />
 							<span className="desk-show">Menu</span>
-						</Link>}
+						</button>}
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<Link to="#" className="overlay"></Link>
+	<div onClick={ e => { e.preventDefault(); setMenu(false) } } className={`overlay ${ menu===true ? `active` : `` }`} />
 
 
-	<div className="nav">
+	<div className={`nav ${menu===true ? `active` : ``}`}>
 		<div className="top-nav-row">
 			<Link to="/make-a-reservation" className="top-nav-row-link">
 				<p>Reservation inquiry</p>
@@ -74,6 +97,15 @@ const NavBar = (props) => {
 					<li>
 						<Link to="/boat-ramp" className="nav-link">Boat Ramp</Link>
 					</li>
+
+					{data.allWp.nodes[0].baseSettings.gridNavACF.smallBlocks.map((block, index) => (
+							<li key={index}>
+								<Link to={ block.link.url } className="nav-link" >{ block.text }</Link>
+							</li>
+					))}
+
+						
+
 				</ul>
 			</nav>
 		</div>

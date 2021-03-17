@@ -107,7 +107,7 @@ const IndexPage = () => {
               <StaticImage src="../images/otter-creek-mobile-logo.png" placeholder="blurred" alt="logo" className="big-name-img" />
 
 
-              <Link to="/" className="big-pic-box">
+              <Link to="/make-a-reservation" className="big-pic-box">
                 <GatsbyImage image={ data.allWp.nodes[0].baseSettings.gridNavACF.mainBlock.image.localFile.childImageSharp.gatsbyImageData } alt="Large Image" className="big-box-img" />
                 <span className="big-label-box">
                   <p className="bigtext">{data.allWp.nodes[0].baseSettings.gridNavACF.mainBlock.title}</p>
