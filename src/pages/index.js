@@ -210,7 +210,7 @@ const IndexPage = () => {
               <div className="newsletter-contain">
 
                 <div id="gform_wrapper_4" className="gf_browser_gecko gform_wrapper">
-                  <form id="gform_4">
+                  <form id="gform_4" onSubmit={submitForm}>
                     <div className="gform_body">
                       <ul id="gform_fields_4" className="gform_fields top_label form_sublabel_below description_belowl">
                         <li className="newsletter-input">

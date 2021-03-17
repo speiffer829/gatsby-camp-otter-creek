@@ -2,10 +2,13 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import React from 'react'
 import Layout from "../components/Layout";
+import Sidebar from '../components/Sidebar'
+import Map from "../components/Map";
+import RatesTable from "../components/RatesTable";
 
 
 export const query = graphql`
-		query($slug: String!){
+		query($slug: String){
 			wpPage(slug: {eq: $slug}) {
 				content
 				slug
@@ -19,6 +22,22 @@ export const query = graphql`
 								gatsbyImageData( layout: FULL_WIDTH, placeholder: BLURRED)
 							}
 						}
+					}
+				}
+				mapACF {
+					map {
+						link
+						localFile {
+							childImageSharp {
+								gatsbyImageData
+							}
+						}
+					}
+				}
+				feesAndRatesACF {
+					ratesAndFees {
+						rate
+						serviceType
 					}
 				}
 			}
@@ -48,11 +67,27 @@ const OurRatesFees = (props) => {
 									<article dangerouslySetInnerHTML={{__html: props.data.wpPage.content}} />
 								</section>
 
+								{
+									// If Map ACF
+									props.data.wpPage.mapACF.map !== null &&
+									<Map img={props.data.wpPage.mapACF.map.localFile.childImageSharp.gatsbyImageData} />
+								}
+
+								{
+									//If Rates And Fees Table
+									props.data.wpPage.feesAndRatesACF.ratesAndFees !== null &&
+									<RatesTable tableData={ props.data.wpPage.feesAndRatesACF.ratesAndFees } />
+								}
+
+								
+
 
 
 						</main>
 
 					</div>
+
+					<Sidebar />
 
 					
 

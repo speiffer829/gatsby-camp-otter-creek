@@ -79,10 +79,10 @@ const NavBar = (props) => {
 			<Link to="/make-a-reservation" className="top-nav-row-link">
 				<p>Reservation inquiry</p>
 			</Link>
-			<Link to="" className="top-nav-row-link close-btn">
+			<button onClick={e => { e.preventDefault(); setMenu(false) }} className="top-nav-row-link close-btn">
 				<StaticImage placeholder="blurred" src="../images/close.png" alt="close" />
 				<p>Close</p>
-			</Link>
+			</button>
 			<Link to="/campground-map" className="top-nav-row-link">
 				<p>Campground Map</p>
 			</Link>

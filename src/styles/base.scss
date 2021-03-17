@@ -707,11 +707,11 @@ header {
         color: $gold;
 
         @include breakpoint(medium) {
-          img {
+          .gatsby-image-wrapper {
             transition: all 0.25s;
           }
           &:hover {
-            img {
+            .gatsby-image-wrapper {
               transform: translateY(-15px);
             }
           }
@@ -926,7 +926,6 @@ header {
       display: -ms-flex;
       display: flex;
       flex-wrap: wrap;
-      margin: 20px 0;
 
       .fee-block {
         border-bottom: solid 1px #000;
