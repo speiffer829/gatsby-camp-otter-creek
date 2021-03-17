@@ -1,4 +1,3 @@
-console.log( process.env.FOO )
 module.exports = {
   siteMetadata: {
     title: "Gatsby Camp Otter Creek",
