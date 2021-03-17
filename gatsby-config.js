@@ -1,3 +1,4 @@
+console.log( process.env.FOO )
 module.exports = {
   siteMetadata: {
     title: "Gatsby Camp Otter Creek",
@@ -22,6 +23,17 @@ module.exports = {
         path: "./src/images/",
       },
       __key: "images",
+    },
+    {
+        resolve: 'gatsby-source-gravityforms',
+        options: {
+            baseUrl: 'http://campottercreek.mindstaging.com',
+            include: [4], // Array of form IDs. Will only import these forms.
+            api: {
+                key: process.env.CONSUMER_KEY,
+                secret: process.env.CONSUMER_SECRET,
+            },
+        },
     },
   ],
 };

@@ -1326,6 +1326,7 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+  padding: 0;
 
   li {
     width: 100%;
@@ -1349,6 +1350,7 @@ section {
 
     .ginput_container {
       width: 80%;
+      margin-top: 8px;
     }
 
     .medium {

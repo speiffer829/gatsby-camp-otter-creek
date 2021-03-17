@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
+import Helmet from "react-helmet";
 
 
 const NavBar = (props) => {
 	return (
-		<header className="site-header" role="banner">
+<header className="site-header" role="banner">
+	<Helmet title={`${props.pageTitle ? `${props.pageTitle} | ` : ''}Otter Creek Campground`} />
 
 
 
@@ -35,7 +37,11 @@ const NavBar = (props) => {
 						<StaticImage placeholder="blurred" src="../images/reservation-icon.png" alt="Reservations" />
 						Reservations<span className="desk-hide"> inquiry</span>
 					</Link>
-					<RenderMenuBtn isHome={props.isHome} />
+					{!props.isHome && <Link to="#" className="desk-nav-link menu-btn order-2">
+							<StaticImage placeholder="blurred" src="../images/desk-open.png" alt="Menu" className="desk-show" />
+							<StaticImage placeholder="blurred" src="../images/open.png" alt="Menu" className="desk-hide" />
+							<span className="desk-show">Menu</span>
+						</Link>}
 				</div>
 			</div>
 		</div>
@@ -82,20 +88,5 @@ const NavBar = (props) => {
 	)
 }
 
-
-
-const RenderMenuBtn = (props) => {
-		if(!props.isHome){
-			return (
-						<Link to="#" className="desk-nav-link menu-btn order-2">
-							<StaticImage placeholder="blurred" src="../images/desk-open.png" alt="Menu" className="desk-show" />
-							<StaticImage placeholder="blurred" src="../images/open.png" alt="Menu" className="desk-hide" />
-							<span className="desk-show">Menu</span>
-						</Link>
-							)
-		}else{
-			return null
-		}
-	}
 
 export default NavBar

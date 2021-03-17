@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 
 const ourRatesFees = () => {
 	return (
-		<Layout>
+		<Layout pageTitle='Our Rates & Fees'>
 			<h1>DUUUURRR</h1>
 		</Layout>
 	)
