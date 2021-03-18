@@ -1,3 +1,1 @@
-#Gatsby Version Of Camp Otter Creek
-
-
+# Gatsby Version Of Camp Otter Creek Website

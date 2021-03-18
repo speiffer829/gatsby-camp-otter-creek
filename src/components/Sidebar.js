@@ -37,9 +37,9 @@ const submitForm = (e) => {
 	return (
 		<aside className="sidebar">
 
-			<div class="gold-block">
-    <div class="wrap smaller-wrap otter-bg">
-  		<div class="arrow-header-wrap">
+			<div className="gold-block">
+    <div className="wrap smaller-wrap otter-bg">
+  		<div className="arrow-header-wrap">
   			<h2>Sign-Up For Our Newsletter!</h2>
   		</div>
 
