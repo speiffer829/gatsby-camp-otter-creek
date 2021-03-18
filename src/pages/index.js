@@ -82,7 +82,6 @@ const IndexPage = () => {
   
   const submitForm = async (e) => {
     e.preventDefault()
-    console.log(btoa('Spenser:StanLeeIsGod'));
     try {
       fetch('http://campottercreek.mindstaging.com/wp-json/gf/v2/forms/4',{
         headers: {
