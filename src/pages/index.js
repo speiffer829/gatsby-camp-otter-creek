@@ -86,8 +86,7 @@ const IndexPage = () => {
       fetch('http://campottercreek.mindstaging.com/wp-json/gf/v2/forms/4',{
         headers: {
           'Content-Type': 'application/json'
-        },
-        'Authorization': `Basic ${btoa('Spenser:StanLeeIsGod')}`
+        }
       })
       .then(response => response.json())
       .then(json => console.log(json))
