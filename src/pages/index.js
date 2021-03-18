@@ -95,6 +95,8 @@ const IndexPage = () => {
     }
     
   }
+
+  const gridStuff = data.allWp.nodes[0].baseSettings.gridNavACF
   
   
   return (
@@ -107,12 +109,12 @@ const IndexPage = () => {
 
 
               <Link to="/make-a-reservation" className="big-pic-box">
-                <GatsbyImage image={ data.allWp.nodes[0].baseSettings.gridNavACF.mainBlock.image.localFile.childImageSharp.gatsbyImageData } alt="Large Image" className="big-box-img" />
+                <GatsbyImage image={ gridStuff.mainBlock.image.localFile.childImageSharp.gatsbyImageData } alt="Large Image" className="big-box-img" />
                 <span className="big-label-box">
-                  <p className="bigtext">{data.allWp.nodes[0].baseSettings.gridNavACF.mainBlock.title}</p>
-                  <p className="normal-text">{ data.allWp.nodes[0].baseSettings.gridNavACF.mainBlock.description }</p>
+                  <p className="bigtext">{gridStuff.mainBlock.title}</p>
+                  <p className="normal-text">{ gridStuff.mainBlock.description }</p>
 
-                  <p className="schedule-link">{data.allWp.nodes[0].baseSettings.gridNavACF.mainBlock.linkText}</p>
+                  <p className="schedule-link">{gridStuff.mainBlock.linkText}</p>
 
                 </span>
 
@@ -124,7 +126,7 @@ const IndexPage = () => {
 
               <div className="little-boxes">
                 {
-                  data.allWp.nodes[0].baseSettings.gridNavACF.smallBlocks.map(block => (
+                  gridStuff.smallBlocks.map(block => (
                     // TODO: SHow/hide on mobile
                     <Link to={ block.link.url } className={`little-box ${block.showOnMobile == 1 ? 'stick-around' : ''}`} key={ block.text }>
                       <GatsbyImage image={block.image.localFile.childImageSharp.gatsbyImageData} alt={block.image.altText} className="small-box-img" />
