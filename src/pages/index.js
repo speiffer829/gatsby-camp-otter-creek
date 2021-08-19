@@ -82,17 +82,20 @@ const IndexPage = () => {
   
   const submitForm = async (e) => {
     e.preventDefault()
-    try {
-      fetch('http://campottercreek.mindstaging.com/wp-json/gf/v2/forms/4',{
-        headers: {
-          'Content-Type': 'application/json'
-        }
+
+    const formElement = e.target,
+    { action, method } = formElement,
+    body = new FormData(formElement)
+    
+      fetch(action,{
+        method,
+        body
       })
       .then(response => response.json())
-      .then(json => console.log(json))
-    } catch (error) {
-      console.log('shits fucked bro');
-    }
+      .then(json => console.log('server response: ', json))
+      .catch (error => {
+        console.log('shits fucked bro');
+      })
     
   }
 
@@ -211,22 +214,22 @@ const IndexPage = () => {
               <div className="newsletter-contain">
 
                 <div id="gform_wrapper_4" className="gf_browser_gecko gform_wrapper">
-                  <form id="gform_4" onSubmit={submitForm}>
+                  <form id="gform_4" action="http://campottercreek.mindstaging.com/wp-json/gf/v2/forms/4/submissions" method="post" onSubmit={submitForm}>
                     <div className="gform_body">
                       <ul id="gform_fields_4" className="gform_fields top_label form_sublabel_below description_belowl">
                         <li className="newsletter-input">
                           <div className="ginput_container ginput_container_text">
-                            <input type="text" name="first_name" placeholder="First Name" className="medium" />
+                            <input type="text" name="input_1" id="input_1" placeholder="First Name" className="medium" />
                           </div>
                         </li>
                         <li className="newsletter-input">
                           <div className="ginput_container ginput_container_text">
-                            <input type="text" name="last_name" placeholder="Last Name" className="medium" />
+                            <input type="text" name="input_2" id="input_2" placeholder="Last Name" className="medium" />
                           </div>
                         </li>
                         <li className="newsletter-input">
                           <div className="ginput_container ginput_container_email">
-                            <input type="email" name="email" placeholder="Email" className="medium" />
+                            <input type="email" name="input_3" id="input_3" placeholder="Email" className="medium" />
                           </div>
                         </li>
                       </ul>
